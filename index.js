@@ -1,5 +1,8 @@
 class Alumno {
+
+    static idReg = 0;
     constructor(nombre, sexo, edad, materias) {
+        this.idAlumno = Alumno.getIdAlumno();
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
@@ -23,15 +26,85 @@ class Alumno {
         const promedio = sumas / this.materias.length;
         return promedio;
     }
+
+    static getIdAlumno ()
+    {
+        Alumno.idReg++;
+        return Alumno.idReg;
+    }
 }
 
-class Materia {
+class MateriaAlumno {
     constructor(nombreMateria, nota) {
         this.nombreMateria = nombreMateria;
         this.nota = nota;
     }
 }
 
+class Materia {
+    constructor(id,nombreMateria) {
+        this.id = id;
+        this.nombreMateria = nombreMateria;
+    }
+}
+
+const materias = 
+["Matematica","Literatura","NTICX","Biologia",
+"Historia","Geografia","Fisica","Ingles","Salud y Adolescencia",
+"Ed. Fisica"];
+const listadoAlumnos = Array();
+const listadoMaterias = Array();
+for (let i=0;i<materias.length;i++){
+    listadoMaterias.push(new Materia(i+1,materias[i]));
+}
+function agregarAlumno() {
+    const nombre = document.querySelector("#nombreAlumno").value;
+    const edad = parseInt(document.querySelector("#edadAlumno").value);
+    const sexo = document.querySelector('input[name="Sexo"]:checked').value;
+    listadoAlumnos.push(new Alumno(nombre,sexo,edad,Array()));
+}
+function listarAlumnos(){
+    const tablaAlumnos = document.querySelector('#tableContent');
+    tablaAlumnos.innerHTML = '';
+    listadoAlumnos.forEach((alumno) => 
+    {
+        tablaAlumnos.innerHTML += `<tr>
+                            <td>${alumno.idAlumno}</td>
+                            <td>${alumno.nombre}</td>
+                            <td>${alumno.edad}</td>
+                            <td>${alumno.sexo}</td>
+                            <td><input type=button id=${"alumno"+alumno.id} value="Ver Materias"></td>
+                        </tr>`;
+    })
+}
+const agregarAlumnoEvento = document.querySelector('#agregarAlumno');
+agregarAlumnoEvento.addEventListener("click",()=>{
+    agregarAlumno();
+    listarAlumnos();
+})
+const guardarProgreso = document.querySelector('#saveWork');
+guardarProgreso.addEventListener("click",()=>{
+    listadoAlumnos.forEach((alumno) =>{
+        localStorage.setItem(alumno.idAlumno,JSON.stringify(alumno,
+            ['idAlumno','nombre','sexo','edad','materias','nombreMateria','nota']));
+    })
+})
+/*
+let divSelector = document.querySelector("#content");
+for (let mat of listadoMaterias)
+{
+    divSelector.innerHTML +=   `<div class="maters">
+                                    <form id="form:${mat.id}">
+                                        <p>${mat.nombreMateria}:</p>
+                                        <input type="number" step=1 min=1 max=10 value=7 id="${mat.id}" />
+                                        <input type="button" value="Agregar" id="${mat.id}+${mat.nombreMateria}" />
+                                    </form>
+                                </<div>`;
+
+}*/
+
+
+/*
 function cargarMaterias() {
     let continuar = true;
     const listaMaterias = Array();
@@ -90,3 +163,4 @@ for (let alum of listaAlumnos)
     stringAlert = stringAlert + `\n${alum.nombre}: ${alum.getPromedio()}`;
 alert(stringAlert);
 alert("Muchas gracias! Vuelva pronto!");
+*/

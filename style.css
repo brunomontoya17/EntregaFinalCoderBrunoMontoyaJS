@@ -1,0 +1,17 @@
+.maters {
+    width: 200px;
+    height: 100px;
+    display: inline-block;
+}
+
+#content {
+    max-width: 50vw;
+    max-height: 80vh;
+    overflow: auto;
+}
+
+#saveWork{
+    width: 150px;
+    height: 80px;
+    padding-block-end: 0%;
+}
