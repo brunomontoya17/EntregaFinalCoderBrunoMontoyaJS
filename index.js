@@ -65,8 +65,19 @@ function cargarAlumnos() {
         if (re.test(clave)) {
             //console.log("entro al if");
             const obj = localStorage.getItem(clave);
-            const alumn = JSON.parse(obj);
-            listadoAlumnos.push(alumn);
+            const alumnobj = JSON.parse(obj);
+            const alumnoload = new Alumno();
+            alumnoload.idAlumno = alumnobj.idAlumno;
+            alumnoload.nombre = alumnobj.nombre;
+            alumnoload.edad = parseInt(alumnobj.edad);
+            alumnoload.sexo = alumnobj.sexo;
+            alumnoload.materias = new Array();
+            for (let matobj of alumnobj.materias)
+            {
+                const matload = new MateriaAlumno(matobj.nombreMateria,parseInt(matobj.nota));
+                alumnoload.materias.push(matload);
+            }
+            listadoAlumnos.push(alumnoload);
         }
     }
 }
@@ -125,7 +136,7 @@ function listarAlumnoSelect()
                                                                     <tfoot>
                                                                         <tr>
                                                                             <td>Promedio:</td>
-                                                                            <td></td>
+                                                                            <td>${alumnoSelect.getPromedio()}</td>
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>`;
