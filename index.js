@@ -125,7 +125,7 @@ function listarAlumnoSelect()
                                                                     <tfoot>
                                                                         <tr>
                                                                             <td>Promedio:</td>
-                                                                            <td>${alumnoSelect.getPromedio()}</td>
+                                                                            <td></td>
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>`;
