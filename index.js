@@ -180,7 +180,7 @@ for (let mat of listadoMaterias) {
 listadoMaterias.forEach((mat) => {
     document.querySelector(`#btn-${mat.id}`).addEventListener("click", (evt) => {
         const notaAgg = document.querySelector(`#number-mat-${mat.id}`).value;
-        const MatAlum = new MateriaAlumno(mat.nombreMateria, notaAgg);
+        const MatAlum = new MateriaAlumno(mat.nombreMateria, parseInt(notaAgg));
         if (alumnoSelect !== null) {
             console.log(MatAlum.nombreMateria);
             console.log(alumnoSelect.materias);
