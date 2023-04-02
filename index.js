@@ -1,6 +1,4 @@
 class Alumno {
-
-    //static idReg = 0;
     constructor(idAlumno, nombre, sexo, edad, materias) {
         this.idAlumno = idAlumno;
         this.nombre = nombre;
@@ -26,12 +24,6 @@ class Alumno {
         const promedio = sumas / this.materias.length;
         return promedio;
     }
-    /*
-    static getIdAlumno ()
-    {
-        Alumno.idReg++;
-        return Alumno.idReg;
-    }*/
 }
 
 class MateriaAlumno {
@@ -130,6 +122,12 @@ function listarAlumnoSelect()
                                                                     <tbody id="currentMaterias">
                                                                         
                                                                     </tbody>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <td>Promedio:</td>
+                                                                            <td>${alumnoSelect.getPromedio()}</td>
+                                                                        </tr>
+                                                                    </tfoot>
                                                                 </table>`;
             alumnoSelect.materias.forEach((mat) => {
                 document.querySelector('#currentMaterias').innerHTML += `<tr>
@@ -175,7 +173,7 @@ listadoMaterias.forEach((mat) => {
         if (alumnoSelect !== null) {
             console.log(MatAlum.nombreMateria);
             console.log(alumnoSelect.materias);
-            const findMat = alumnoSelect.materias.find((mat1) => { mat1.nombreMateria === MatAlum.nombreMateria });
+            const findMat = alumnoSelect.materias.find((mat1) => mat1.nombreMateria === MatAlum.nombreMateria );
             if (findMat === undefined) {
                 alumnoSelect.materias.push(MatAlum);
                 console.log(findMat);
