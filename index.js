@@ -1,8 +1,8 @@
 class Alumno {
 
-    static idReg = 0;
-    constructor(nombre, sexo, edad, materias) {
-        this.idAlumno = Alumno.getIdAlumno();
+    //static idReg = 0;
+    constructor(idAlumno, nombre, sexo, edad, materias) {
+        this.idAlumno = idAlumno;
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
@@ -26,12 +26,12 @@ class Alumno {
         const promedio = sumas / this.materias.length;
         return promedio;
     }
-
+    /*
     static getIdAlumno ()
     {
         Alumno.idReg++;
         return Alumno.idReg;
-    }
+    }*/
 }
 
 class MateriaAlumno {
@@ -42,66 +42,152 @@ class MateriaAlumno {
 }
 
 class Materia {
-    constructor(id,nombreMateria) {
+    constructor(id, nombreMateria) {
         this.id = id;
         this.nombreMateria = nombreMateria;
     }
 }
 
-const materias = 
-["Matematica","Literatura","NTICX","Biologia",
-"Historia","Geografia","Fisica","Ingles","Salud y Adolescencia",
-"Ed. Fisica"];
+const materias =
+    ["Matematica", "Literatura", "NTICX", "Biologia",
+        "Historia", "Geografia", "Fisica", "Ingles", "Salud y Adolescencia",
+        "Ed. Fisica"];
 const listadoAlumnos = Array();
 const listadoMaterias = Array();
-for (let i=0;i<materias.length;i++){
-    listadoMaterias.push(new Materia(i+1,materias[i]));
+for (let i = 0; i < materias.length; i++) {
+    listadoMaterias.push(new Materia(i + 1, materias[i]));
 }
+let ClaveAlumnos = parseInt(localStorage.getItem("ClaveAlumnos"));
+let alumnoSelect = null;
+if (ClaveAlumnos === null) {
+    ClaveAlumnos = 0;
+    localStorage.setItem("ClaveAlumnos", ClaveAlumnos);
+}
+console.log(ClaveAlumnos);
+function cargarAlumnos() {
+    for (let i = 0; i < localStorage.length; i++) {
+        //console.log("Entro al for");
+        let clave = localStorage.key(i);
+        const re = new RegExp('alumno:\\d+');
+        //console.log (clave,re.test(clave),re.source);
+        if (re.test(clave)) {
+            //console.log("entro al if");
+            const obj = localStorage.getItem(clave);
+            const alumn = JSON.parse(obj);
+            listadoAlumnos.push(alumn);
+        }
+    }
+}
+cargarAlumnos();
+listarAlumnos();
+
 function agregarAlumno() {
+    ClaveAlumnos++;
     const nombre = document.querySelector("#nombreAlumno").value;
     const edad = parseInt(document.querySelector("#edadAlumno").value);
     const sexo = document.querySelector('input[name="Sexo"]:checked').value;
-    listadoAlumnos.push(new Alumno(nombre,sexo,edad,Array()));
+    listadoAlumnos.push(new Alumno(ClaveAlumnos, nombre, sexo, edad, Array()));
 }
-function listarAlumnos(){
+function listarAlumnos() {
     const tablaAlumnos = document.querySelector('#tableContent');
     tablaAlumnos.innerHTML = '';
-    listadoAlumnos.forEach((alumno) => 
-    {
+    listadoAlumnos.forEach((alumno) => {
         tablaAlumnos.innerHTML += `<tr>
                             <td>${alumno.idAlumno}</td>
                             <td>${alumno.nombre}</td>
                             <td>${alumno.edad}</td>
                             <td>${alumno.sexo}</td>
-                            <td><input type=button id=${"alumno"+alumno.id} value="Ver Materias"></td>
+                            <td><input type=button id="ver-${alumno.idAlumno}" value="Ver Materias"></td>
                         </tr>`;
-    })
+    });
+    listadoAlumnos.forEach((alumno) => {
+        document.querySelector(`#ver-${alumno.idAlumno}`).addEventListener("click", (evt) => {
+            alumnoSelect = alumno;
+            listarAlumnoSelect();
+            //console.log(alumnoSelect.idAlumno, alumnoSelect.nombre);
+            
+        });
+    });
+    
 }
+
+function listarAlumnoSelect()
+{ 
+    document.querySelector("#currentAlumno").innerHTML = `<div class="card flex-row">
+                                                                    <div class="card-body">
+                                                                        <p>Alumno: ${alumnoSelect.nombre}</p>
+                                                                        <p>Edad: ${alumnoSelect.edad}</p>
+                                                                        <p>Sexo: ${alumnoSelect.sexo}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <table class="table table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Materia:</th>
+                                                                            <th>Nota:</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="currentMaterias">
+                                                                        
+                                                                    </tbody>
+                                                                </table>`;
+            alumnoSelect.materias.forEach((mat) => {
+                document.querySelector('#currentMaterias').innerHTML += `<tr>
+                                                                            <td>${mat.nombreMateria}</td>
+                                                                            <td>${mat.nota}</td>
+                                                                        </tr>`;
+            });
+}
+
 const agregarAlumnoEvento = document.querySelector('#agregarAlumno');
-agregarAlumnoEvento.addEventListener("click",()=>{
+agregarAlumnoEvento.addEventListener("click", () => {
     agregarAlumno();
     listarAlumnos();
 })
 const guardarProgreso = document.querySelector('#saveWork');
-guardarProgreso.addEventListener("click",()=>{
-    listadoAlumnos.forEach((alumno) =>{
-        localStorage.setItem(alumno.idAlumno,JSON.stringify(alumno,
-            ['idAlumno','nombre','sexo','edad','materias','nombreMateria','nota']));
-    })
+guardarProgreso.addEventListener("click", () => {
+    localStorage.setItem("ClaveAlumnos", ClaveAlumnos);
+    listadoAlumnos.forEach((alumno) => {
+        localStorage.setItem(`alumno:${alumno.idAlumno}`, JSON.stringify(alumno,
+            ['idAlumno', 'nombre', 'sexo', 'edad', 'materias', 'nombreMateria', 'nota']));
+    });
+    alert("El progreso ha sido guardado");
 })
-/*
-let divSelector = document.querySelector("#content");
-for (let mat of listadoMaterias)
-{
-    divSelector.innerHTML +=   `<div class="maters">
-                                    <form id="form:${mat.id}">
-                                        <p>${mat.nombreMateria}:</p>
-                                        <input type="number" step=1 min=1 max=10 value=7 id="${mat.id}" />
-                                        <input type="button" value="Agregar" id="${mat.id}+${mat.nombreMateria}" />
-                                    </form>
-                                </<div>`;
 
-}*/
+let divSelector = document.querySelector("#materiasAlumno");
+for (let mat of listadoMaterias) {
+    divSelector.innerHTML += `<div class="card flex-row">
+                                    <div class="card-body">
+                                        <form id="form:${mat.id}">
+                                            <p>${mat.nombreMateria}:</p>
+                                            <input type="number" step=1 min=1 max=10 value=7 id="number-mat-${mat.id}" />
+                                            <input type="button" value="Agregar" id="btn-${mat.id}" />
+                                        </form>
+                                    </div>
+                                </div>`;
+    console.log(`"btn-${mat.nombreMateria}-${mat.id}"`);
+}
+
+listadoMaterias.forEach((mat) => {
+    document.querySelector(`#btn-${mat.id}`).addEventListener("click", (evt) => {
+        const notaAgg = document.querySelector(`#number-mat-${mat.id}`).value;
+        const MatAlum = new MateriaAlumno(mat.nombreMateria, notaAgg);
+        if (alumnoSelect !== null) {
+            console.log(MatAlum.nombreMateria);
+            console.log(alumnoSelect.materias);
+            const findMat = alumnoSelect.materias.find((mat1) => { mat1.nombreMateria === MatAlum.nombreMateria });
+            if (findMat === undefined) {
+                alumnoSelect.materias.push(MatAlum);
+                console.log(findMat);
+            }
+            else {
+                findMat.nota = MatAlum.nota;
+            }
+            listarAlumnoSelect();
+        }
+    });
+
+});
 
 
 /*

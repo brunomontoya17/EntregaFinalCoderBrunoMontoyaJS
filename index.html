@@ -13,41 +13,51 @@
 <body>
     <h1>Bienvenido!!!</h1>
     <p>Calculadora de promedios de materias escolares</p>
-    <div id="content">
-        <form id="alumnos">
-            <label for="nombreAlumno">Nombre:</label>
-            <input type="text" name="" id="nombreAlumno"><br/>
-            <label for="edadAlumno">Edad:</label>
-            <input type="number" name="" id="edadAlumno" step="1" value="12" min="12" max="18"><br/>
-            <label>Sexo:</label><br/>
-            <input type="radio" name="Sexo" id="masculino" value="masculino" checked>
-            <label for="masculino">Masculino</label><br/>
-            <input type="radio" name="Sexo" id="femenino" value="femenino">
-            <label for="femenino">Femenino</label><br/>
-            <input type="button" value="Agregar" id="agregarAlumno">
-            <br/>
-        </form>
-        <form id="listaAlumnos">
-            <table id="listAlum" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID:</th>
-                        <th>Nombre:</th>
-                        <th>Edad:</th>
-                        <th>Sexo:</th>
-                        <th>Ver Materias:</th>
-                    </tr>
-                </thead>
-                <tbody id="tableContent">
-
-                </tbody>
-            </table>
-        </form>
-        <div id="saveWork">
-            <form>
-                <label for="save">Guardar: </label>
-                <input type="button" id="save" value="Guardar">
+    <div class="d-flex p-2 bd-highlight">
+        <div id="content" class="flex-row">
+            <form id="alumnos">
+                <label for="nombreAlumno">Nombre:</label>
+                <input type="text" name="" id="nombreAlumno"><br/>
+                <label for="edadAlumno">Edad:</label>
+                <input type="number" name="" id="edadAlumno" step="1" value="12" min="12" max="18"><br/>
+                <label>Sexo:</label><br/>
+                <input type="radio" name="Sexo" id="masculino" value="masculino" checked>
+                <label for="masculino">Masculino</label><br/>
+                <input type="radio" name="Sexo" id="femenino" value="femenino">
+                <label for="femenino">Femenino</label><br/>
+                <input type="button" value="Agregar" id="agregarAlumno">
+                <br/>
             </form>
+            <form id="listaAlumnos">
+                <table id="listAlum" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID:</th>
+                            <th>Nombre:</th>
+                            <th>Edad:</th>
+                            <th>Sexo:</th>
+                            <th>Ver Materias:</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableContent">
+    
+                    </tbody>
+                </table>
+            </form>
+            <div id="saveWork">
+                <form>
+                    <label for="save">Guardar: </label>
+                    <input type="button" id="save" value="Guardar">
+                </form>
+            </div>
+        </div>
+        <div id="content-2" class="flex-row">
+            <div id="currentAlumno" >
+    
+            </div>
+            <div id="materiasAlumno" class="d-flex flex-wrap">
+    
+            </div>
         </div>
     </div>
     <script src="index.js"></script>

@@ -3,15 +3,23 @@
     height: 100px;
     display: inline-block;
 }
-
+/*
 #content {
-    max-width: 50vw;
+    max-width: 60vw;
     max-height: 80vh;
     overflow: auto;
+    float: left;
 }
 
+#content-2 {
+    max-width: 40vw;
+    max-height: 80vh;
+    float: right;
+}*/
+
+/*
 #saveWork{
     width: 150px;
     height: 80px;
     padding-block-end: 0%;
-}
+}*/
