@@ -1,0 +1,61 @@
+[
+    {
+        "curso":"1ro",
+        "materias":["Ciencias Naturales","Ciencias Sociales","Educacion Artistica",
+                    "Educacion Fisica","Ingles","Matematica","Practicas del Lenguaje",
+                    "Construccion de Ciudadania"]
+    },
+    {
+        "curso":"2do",
+        "materias":["Biologia","Construccion de Ciudadania","Educacion Artistica","Educacion Fisica",
+                    "Fisico Quimica","Geografia","Historia",
+                    "Ingles","Matematica","Practicas del Lenguaje"]
+    },
+    {
+        "curso":"3ro",
+        "materias":["Biologia","Construccion de Ciudadania","Educacion Artistica","Educacion Fisica",
+                    "Fisico Quimica","Geografia","Historia",
+                    "Ingles","Matematica","Practicas del Lenguaje"]
+    },
+    {
+        "curso":"4to-CN",
+        "materias":["Geografia","Historia","Educacion Fisica","Biologia",
+                    "Literatura","Salud y Adolescencia","Matematica Ciclo Superior","NTICX",
+                    "Introduccion a la Fisica","Ingles","Introduccion a la Quimica"]
+    },
+    {
+        "curso":"5to-CN",
+        "materias":["Arte","Historia","Educacion Fisica","Literatura",
+                    "Politica y Ciudadania","Matematica Ciclo Superior","Ingles","Geografia",
+                    "Fundamentos de Quimica","Fisica","Ciencias de la Tierra","Biologia"]
+    },
+    {
+        "curso":"6to-CN",
+        "materias":["Filosofia","Educacion Fisica","Literatura",
+                    "Trabajo y Ciudadania","Matematica Ciclo Superior","Ingles","FeHdlCylT",
+                    "Quimica del Carbono","Biologia, genetica y sociedad","Fisica clasica y moderna",
+                    "Ambiente, desarrollo y sociedad"]
+    },
+    {
+        "curso":"4to-EF",
+        "materias":["Geografia","Historia","Educacion Fisica","Biologia",
+                    "Literatura","Salud y Adolescencia","Matematica Ciclo Superior","NTICX",
+                    "Introduccion a la Fisica","Ingles","Practicas Deportivas",
+                    "Educacion Fisica y corporeidad","Psicologia"]
+    },
+    {
+        "curso":"5to-EF",
+        "materias":["Historia","Educacion Fisica","Literatura",
+                    "Politica y Ciudadania","Matematica Ciclo Superior","Ingles","Geografia",
+                    "Practicas deportivas y acuaticas","Educacion Fisica y cultura",
+                    "Pract. corp. y dep. Amb Nat","Practicas Gimnasticas y expresivas","Sociologia"]
+    },
+    {
+        "curso":"6to-EF",
+        "materias":["Arte","Filosofia","Educacion Fisica","Literatura",
+                    "Trabajo y Ciudadania","Matematica Ciclo Superior","Ingles",
+                    "Educacion Fisica y Comunidad","Practicas deportivas y juegos",
+                    "Diseño y gestion de proyectos",
+                    "Practicas gimnasticas y expresivas II"]
+    }
+]
