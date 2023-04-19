@@ -71,12 +71,26 @@ agregarAlumnoEvento.addEventListener("click", () => {
 })
 const guardarProgreso = document.querySelector('#saveWork');
 guardarProgreso.addEventListener("click", () => {
-    localStorage.setItem("ClaveAlumnos", ClaveAlumnos);
-    listadoAlumnos.forEach((alumno) => {
-        localStorage.setItem(`alumno:${alumno.idAlumno}`, JSON.stringify(alumno,
-            ['idAlumno', 'nombre', 'curso', 'sexo', 'edad', 'materias', 'nombreMateria', 'nota']));
-    });
-    alert("El progreso ha sido guardado");
+    Swal.fire({
+        title: '¿Desea guardar los cambios?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        denyButtonText: `No guardar`,
+        cancelButtonText: `Cancelar`
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            localStorage.setItem("ClaveAlumnos", ClaveAlumnos);
+            listadoAlumnos.forEach((alumno) => {
+                localStorage.setItem(`alumno:${alumno.idAlumno}`, JSON.stringify(alumno,
+                    ['idAlumno', 'nombre', 'curso', 'sexo', 'edad', 'materias', 'nombreMateria', 'nota']));
+            });
+            Swal.fire('El progreso ha sido guardado', '', 'success')
+        } else if (result.isDenied) {
+            Swal.fire('Los cambios no se han guardado', '', 'info')
+        }
+    })
 })
 
 function cargarAlumnos() {
@@ -105,7 +119,7 @@ function cargarAlumnos() {
     }
 }
 async function cargarCursos() {
-    const resp = await fetch("http://localhost:5500/materias.json");
+    const resp = await fetch("/materias.json");
     const dataJson = await resp.json();
 
     dataJson.forEach((curso) => {
@@ -138,7 +152,7 @@ function listarAlumnos() {
                         </tr>`;
     });
     listadoAlumnos.forEach((alumno) => {
-        document.querySelector(`#ver-${alumno.idAlumno}`).addEventListener("click",async (evt) => {
+        document.querySelector(`#ver-${alumno.idAlumno}`).addEventListener("click", async (evt) => {
             alumnoSelect = alumno;
             listarAlumnoSelect();
             //console.log(alumnoSelect.idAlumno, alumnoSelect.nombre);
@@ -181,10 +195,10 @@ function listarAlumnoSelect() {
                                                                             <td>${mat.nota}</td>
                                                                         </tr>`;
     });
-    
+
 }
 async function cargarMateriasXCurso() {
-    const response = await fetch("http://localhost:5500/materias.json");
+    const response = await fetch("/materias.json");
     const dataJson = await response.json();
 
     const arrayMaterias = dataJson.find((curso) => curso.curso === alumnoSelect.curso).materias;
@@ -223,12 +237,21 @@ function cargarEventosMaterias() {
                 const findMat = alumnoSelect.materias.find((mat1) => mat1.nombreMateria === MatAlum.nombreMateria);
                 if (findMat === undefined) {
                     alumnoSelect.materias.push(MatAlum);
-                    console.log(findMat);
+                    Toastify({
+                        text: `La materia ${MatAlum.nombreMateria} se agrego con la nota: ${MatAlum.nota}`,
+                        duration: 3000,
+                        }).showToast();
+                    listarAlumnoSelect();
                 }
                 else {
                     findMat.nota = MatAlum.nota;
+                    Toastify({
+                        text: `La materia ${MatAlum.nombreMateria} se modifico con la nota: ${MatAlum.nota}`,
+                        duration: 3000,
+                        }).showToast();
+                    listarAlumnoSelect();
                 }
-                listarAlumnoSelect();
+                
             }
         });
     });
