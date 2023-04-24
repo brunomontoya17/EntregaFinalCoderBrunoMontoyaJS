@@ -119,7 +119,11 @@ function cargarAlumnos() {
     }
 }
 async function cargarCursos() {
-    const resp = await fetch("/materias.json");
+    const path = window.location.pathname;
+	console.log(path);
+    const finalpath = path.split('index.html');
+    console.log(finalpath);
+    const resp = await fetch(finalpath[0]+"materias.json");
     const dataJson = await resp.json();
 
     dataJson.forEach((curso) => {
@@ -198,7 +202,11 @@ function listarAlumnoSelect() {
 
 }
 async function cargarMateriasXCurso() {
-    const response = await fetch("/materias.json");
+	const path = window.location.pathname;
+	console.log(path);
+    const finalpath = path.split('index.html');
+    console.log(finalpath);
+    const response = await fetch(finalpath[0]+"materias.json");
     const dataJson = await response.json();
 
     const arrayMaterias = dataJson.find((curso) => curso.curso === alumnoSelect.curso).materias;
